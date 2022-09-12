@@ -1,0 +1,17 @@
+Package: GWASinlps
+Type: Package
+Title: Nonlocal Prior Based Iterative Variable Selection Tool for Genome-Wide Association Studies, or Other High-Dimensional Data
+Version: 2.0
+Date: 2022-09-12
+Authors@R: c(person("Nilotpal", "Sanyal", role = c("aut", "cre"), email = "nilotpal.sanyal@gmail.com"))
+Author: Nilotpal Sanyal [aut, cre]
+Maintainer: Nilotpal Sanyal <nilotpal.sanyal@gmail.com>
+Description: Package GWASinlps performs variable selection with data from Genome-wide association studies (GWAS), or other high-dimensional data, combining in an iterative framework, the computational efficiency of the screen-and-select variable selection approach based on some association learning and the parsimonious uncertainty quantification provided by the use of nonlocal priors as described in Sanyal et al. (2018) <DOI:10.1093/bioinformatics/bty472>. 
+License: GPL (>=2)
+Depends: mombf, fastglm 
+Imports: Rcpp (>= 1.0.9), RcppArmadillo, horseshoe
+Suggests: glmnet
+LinkingTo: Rcpp, RcppArmadillo
+URL: https://nilotpalsanyal.github.io/GWASinlps/
+BugReports: https://github.com/nilotpalsanyal/GWASinlps/issues
+Repository: CRAN
