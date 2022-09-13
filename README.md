@@ -3,7 +3,7 @@
 
 <img src="man/figures/logo.png" align="right" style="float:right; height:140px;" />
 
-# GWASinlps: Nonlocal Prior Based Iterative Variable Selection Tool for Genome-Wide Association Studies
+# GWASinlps: Nonlocal Prior Based Iterative Variable Selection Tool for Genome-Wide Association Studies, or Other High-Dimensional Data
 
 <!-- badges: start -->
 
