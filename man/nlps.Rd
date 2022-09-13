@@ -3,14 +3,14 @@
 \alias{nlpsLM}
 \alias{nlpsGLM}
  
-\title{Nonlocal prior based single-step variable selection for high-dimensional data}
+\title{Non-local prior based single-step variable selection for high-dimensional data}
 
-\description{\code{nlpsLM} and \code{nlpsGLM} perform variable selection in a single iteration respectively for continuous and binary phenotypes, combining the computational efficiency of the screen-and-select variable selection approach based on some association learning and the parsimonious uncertainty quantification provided by the use of nonlocal priors as described in Sanyal et al. (2018)
+\description{\code{nlpsLM} and \code{nlpsGLM} perform variable selection in a single iteration respectively for continuous and binary phenotypes, combining the computational efficiency of the screen-and-select variable selection approach based on some association learning and the parsimonious uncertainty quantification provided by the use of non-local priors as described in Sanyal et al. (2019).
 }
 
 \usage{
 nlpsLM(y, x, cor_xy, prior = c("mom", "imom", "zellner", 
-  "horeshoe"), tau, priorDelta = modelbbprior(1,1), 
+  "horseshoe"), tau, priorDelta = modelbbprior(1,1), 
   k0, rxx, niter = 2000, verbose = F, 
   tau.hs.method = "halfCauchy", sigma.hs.method = "Jeffreys" )
 
@@ -20,16 +20,16 @@ nlpsGLM(y, x, mmle_xy, prior = c("mom", "imom", "zellner"),
 }
 
 \arguments{
-  \item{y}{The vector of continuous or binary response (phenotype).}
+  \item{y}{The vector of continuous or binary response (phenotype). Binary response values must be 0 or 1.}
   \item{x}{The design matrix with subjects in rows and independent variables (SNPs) in columns. Missing values are not accepted currently.}
   \item{cor_xy}{Vector of (Pearson) correlations of \code{y} with the columns of \code{x}.}
   \item{mmle_xy}{Vector of maximum marginal likelihood estimates of the regression parameters for the variables (SNPs) in \code{x}. These are obtained from individual GLM fits of \code{y} with the columns of \code{x}.}
   \item{prior}{\code{"mom"} for pMOM prior, \code{"imom"} for piMOM prior, \code{"zellner"} for Zellner's g-prior, \code{"horseshoe"} for horseshoe prior. For \code{family="binomial"}, \code{"zellner"} considers group Zellner prior and \code{"horseshoe"} is not available.}
-  \item{tau}{the value of the scale parameter tau of the nonlocal prior. }
+  \item{tau}{the value of the scale parameter tau of the non-local prior. }
   \item{priorDelta}{Prior for model space. Defaults to \code{modelbbprior(1,1)}, which is beta-binomial(1,1) prior.}
   \item{k0}{GWASinlps tuning parameter denoting the number of leading SNPs (see Details).}
   \item{rxx}{GWASinlps tuning parameter denoting the correlation threshold to determine leading sets (see References).}
-  \item{niter}{Number of MCMC iterations for nonlocal prior based Bayesian variable selection. Defaults to 2000.}
+  \item{niter}{Number of MCMC iterations for non-local prior based Bayesian variable selection. Defaults to 2000.}
   \item{verbose}{If TRUE, prints result from the iterations progressively. FALSE by default.}
   \item{tau.hs.method}{Necessary only when \code{prior="horseshoe"}. See \code{horseshoe} function reference.}
   \item{sigma.hs.method}{Necessary only when \code{prior="horseshoe"}. See \code{horseshoe} function reference.}  
@@ -45,14 +45,14 @@ nlpsGLM(y, x, mmle_xy, prior = c("mom", "imom", "zellner"),
 }
 
 \references{
-Sanyal et al. (2018), "GWASinlps: Nonlocal prior based iterative SNP selection tool for genome-wide association studies". Bioinformatics, 35(1), 1-11.
+Sanyal et al. (2019), "GWASinlps: Non-local prior based iterative SNP selection tool for genome-wide association studies". Bioinformatics, 35(1), 1-11.
 }
 
 \author{Nilotpal Sanyal <nilotpal.sanyal@gmail.com>
 }
 
 \seealso{
-\code{\link{GWASinlps}}, \code{\link[mombf]{modelSelection}}
+\code{\link{GWASinlps}}, \code{\link[mombf]{modelSelection}}, \code{\link[horseshoe]{horseshoe}}
 }
 
 \examples{
