@@ -11,7 +11,7 @@ GWASinlps = function( y, x, family=c("normal","binomial"), cor_xy=NULL, mmle_xy=
 
 		# Run GWASinlps iteration
 		varsleft = colnames(x)
-		varsselected = c("") 
+		varsselected = "" 
 		selected_iterwise = list()
 
 		max_nocollect = 0   # number of times no variables show up in the hppm 
@@ -79,7 +79,7 @@ GWASinlps = function( y, x, family=c("normal","binomial"), cor_xy=NULL, mmle_xy=
 		
 		# Run GWASinlps iterations
 		varsleft = colnames(x)
-		varsselected = c(0) 
+		varsselected = 0 
 		selected_iterwise = list()
 
 		max_nocollect = 0   # number of times no variables show up in the hppm 
@@ -134,7 +134,7 @@ nlpsLM = function( y, x, cor_xy, prior = c("mom", "imom", "zellner", "horeshoe")
 
 	hppm = list()
 
-	names_xx_input_set = c()
+	names_xx_input_set = NULL
 
 	for(i in 1:k0)  #take the i'th of top k0 x's
 	{
@@ -190,15 +190,12 @@ nlpsLM = function( y, x, cor_xy, prior = c("mom", "imom", "zellner", "horeshoe")
 
 nlpsGLM = function( y, x, mmle_xy, prior = c("mom", "imom", "zellner"), tau, priorDelta = modelbbprior(1,1), k0, rxx, niter = 2000, verbose = F )
 { 
-	if(is.null(mmle_xy)) cor_xy = arma_cor(x,y)	#find corr of all x's with y, if not ptovided
-	names(cor_xy) = colnames(x)
-
 	k0 = min(k0,ncol(x)) #if x has only 1 snp, but k0=2, then just reset k0=1
 	names_sorted_mmle_xy = names( sort( abs(mmle_xy), decreasing = T ) [1:k0] )  # find x's with top k0 cors
 
 	hppm = list()
 
-	names_xx_input_set = c()
+	names_xx_input_set = NULL
 
 	for(i in 1:k0)  #take the i'th of top k0 x's
 	{
