@@ -1,9 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<img src="man/figures/logo.png" align="right" style="float:right; height:140px;" />
+<img src="man/figures/logo.png" align="right" style="float:right; height:135px; padding-top:5px;" />
 
-# GWASinlps: Nonlocal Prior Based Iterative Variable Selection Tool for Genome-Wide Association Studies, or Other High-Dimensional Data
+# GWASinlps: Nonlocal Prior Based Iterative Variable Selection Tool for Genome-Wide Association Studies
 
 <!-- badges: start -->
 
