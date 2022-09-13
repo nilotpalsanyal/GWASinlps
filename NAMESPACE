@@ -1,8 +1,0 @@
-useDynLib(GWASinlps, .registration=TRUE)
-importFrom(Rcpp, evalCpp)
-importFrom(RcppArmadillo, fastLm)
-import(mombf)
-import(fastglm)
-import(horseshoe)
-importFrom("stats", "cor", "na.omit", "lm", "rbeta", "rbinom", "rnorm", "poisson", "glm", "sd", "dnorm", "uniroot", "pnorm", "nlminb", "coef", "binomial", "residuals")
-export("GWASinlps", "nlpsLM", "nlpsGLM")
