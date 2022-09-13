@@ -9,8 +9,8 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/GWASinlps)](https://CRAN.R-project.org/package=GWASinlps)
-[![R-CMD-check](https://github.com/nilotpalsanyal/GWASinlps/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/nilotpalsanyal/GWASinlps/actions/workflows/R-CMD-check.yaml)
 [![CodeFactor](https://www.codefactor.io/repository/github/nilotpalsanyal/gwasinlps/badge)](https://www.codefactor.io/repository/github/nilotpalsanyal/gwasinlps)
+[![R-CMD-check](https://github.com/nilotpalsanyal/GWASinlps/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/nilotpalsanyal/GWASinlps/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 GWASinlps performs Bayesian nonlocal prior based iterative variable
@@ -165,7 +165,7 @@ inlps <- GWASinlps(y, x, mmle_xy=mmle_xy, family="binomial",
 prior="mom", tau=0.2, k0=1, m=50, rxx=0.2)
 #> =================================
 #> Number of selected variables: 3
-#> Time taken: 0.11 min
+#> Time taken: 0.1 min
 #> =================================
 
 # Results
