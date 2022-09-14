@@ -73,13 +73,13 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<p><img src="reference/figures/logo.png" align="right" style="float:right; height:134px; padding-top:4px;padding-right:-2px;"></p>
+<p><img src="reference/figures/logo.png" align="right" style="float:right; height:129px; padding-top:3px;"></p>
 <div class="section level1">
 <div class="page-header"><h1 id="gwasinlps-non-local-prior-based-iterative-variable-selection-tool-for-genome-wide-association-studies">GWASinlps: Non-local Prior Based Iterative Variable Selection Tool for Genome-Wide Association Studies<a class="anchor" aria-label="anchor" href="#gwasinlps-non-local-prior-based-iterative-variable-selection-tool-for-genome-wide-association-studies"></a>
 </h1></div>
 <!-- badges: start -->
 
-<p>GWASinlps performs Bayesian non-local prior based iterative variable selection for data from genome-Wide association studies (GWAS), or other high-dimensional data, as described in Sanyal et al. (<a href="#ref-paper">2018</a>).</p>
+<p>GWASinlps performs Bayesian non-local prior based iterative variable selection for data from genome-Wide association studies (GWAS), or other high-dimensional data, as described in Sanyal et al. (<a href="#ref-paper">2019</a>).</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -102,7 +102,6 @@
 </h2>
 <p><code><a href="reference/GWASinlps.html">GWASinlps()</a></code> is the main function which accepts continuous or binary data (such as phenotype data) and a matrix with the independent variable values (SNP genotypes). The function also needs as input values for scaling parameter of the selected non-local prior and the tuning paramters. These should be fixed based on exploratory study and/or subject-specific heuristics. For example, in GWAS analysis, as the GWAS effect sizes are generally very small (typical effect size of a SNP is around 0.05% of the total phenotypic variance for quantitative traits), the scaling parameter can be chosen such that the non-local prior allows at least 1% chance of a standardized effect size being 0.05 or less in absolute value. Such estimates of the scaling parameter for the MOM and iMOM priors are 0.022 and 0.008, respectively.</p>
 <p>Here is a simple illistration of the use the <code><a href="reference/GWASinlps.html">GWASinlps()</a></code> function for both continous and binary phenotypes.</p>
-<!-- For a detailed manual, see the package [vignette](https://cran.r-project.org/web/packages/BHMSMAfMRI/vignettes/BHMSMAfMRIvignette.pdf){target="_blank"}.  -->
 <div class="section level3">
 <h3 id="gwasinlps-analysis-with-continuous-dataphenotypes">GWASinlps analysis with continuous data/phenotypes<a class="anchor" aria-label="anchor" href="#gwasinlps-analysis-with-continuous-dataphenotypes"></a>
 </h3>
@@ -117,7 +116,7 @@
 <span><span class="co">#&gt; Loading required package: fastglm</span></span>
 <span><span class="co">#&gt; Loading required package: bigmemory</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Welcome to GWASinlps...Happy selection!</span></span>
+<span><span class="co">#&gt;  Welcome to GWASinlps! Select well.</span></span>
 <span><span class="co">#&gt;  </span></span>
 <span><span class="co">#&gt;  Website: https://nilotpalsanyal.github.io/GWASinlps/</span></span>
 <span><span class="co">#&gt;  Bug report: https://github.com/nilotpalsanyal/GWASinlps/issues</span></span>
@@ -285,7 +284,7 @@ LASSO 1se
 <span>                            mmle_xy<span class="op">=</span><span class="va">mmle_xy</span>, prior<span class="op">=</span><span class="st">"mom"</span>, tau<span class="op">=</span><span class="fl">0.2</span>, k0<span class="op">=</span><span class="fl">1</span>, m<span class="op">=</span><span class="fl">50</span>, rxx<span class="op">=</span><span class="fl">0.2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; =================================</span></span>
 <span><span class="co">#&gt; Number of selected variables: 4</span></span>
-<span><span class="co">#&gt; Time taken: 0.37 min</span></span>
+<span><span class="co">#&gt; Time taken: 0.33 min</span></span>
 <span><span class="co">#&gt; =================================</span></span>
 <span></span>
 <span><span class="va">inlps_quick</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/GWASinlps.html">GWASinlps</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">x</span>, family<span class="op">=</span><span class="st">"binomial"</span>, method<span class="op">=</span><span class="st">"quick"</span>,</span>
@@ -409,7 +408,7 @@ LASSO 1se
 
 <div id="ref-paper">
 
-<p>Sanyal et al. (2018), “GWASinlps: Non-local prior based iterative SNP selection tool for genome-wide association studies”. Bioinformatics, 35(1), 1-11. <span target="_blank"><a href="https://doi.org/10.1093/bioinformatics/bty472" class="external-link uri">https://doi.org/10.1093/bioinformatics/bty472</a></span></p>
+<p>Nilotpal Sanyal, Min-Tzu Lo, Karolina Kauppi, Srdjan Djurovic, Ole A. Andreassen, Valen E. Johnson, and Chi-Hua Chen. “GWASinlps: non-local prior based iterative SNP selection tool for genome-wide association studies.” Bioinformatics 35, no. 1 (2019): 1-11. <span target="_blank"><a href="https://doi.org/10.1093/bioinformatics/bty472" class="external-link uri">https://doi.org/10.1093/bioinformatics/bty472</a></span></p>
 </div>
 </div>
 </div>
