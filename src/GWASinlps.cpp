@@ -30,7 +30,7 @@ arma::vec arma_cor( arma::mat X, arma::vec y )
 int looprun(CharacterVector varsselected, CharacterVector varsleft, int max_nocollect, double m, int nskip)
 {
   int out;
-  if( (varsselected.size() < m+1) & (varsleft.size() > 0) & (max_nocollect < nskip) )
+  if( (varsselected.size() < m+1) && (varsleft.size() > 0) && (max_nocollect < nskip) )
   out=1; else out=0;
   return(out);
 }
