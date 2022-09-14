@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<img src="man/figures/logo.png" align="right" style="float:right; height:134px; padding-top:4px;padding-right:-2px;" />
+<img src="man/figures/logo.png" align="right" style="float:right; height:129px; padding-top:3px;" />
 
 # GWASinlps: Non-local Prior Based Iterative Variable Selection Tool for Genome-Wide Association Studies
 
@@ -15,8 +15,8 @@ status](https://www.r-pkg.org/badges/version/GWASinlps)](https://CRAN.R-project.
 
 GWASinlps performs Bayesian non-local prior based iterative variable
 selection for data from genome-Wide association studies (GWAS), or other
-high-dimensional data, as described in Sanyal et al.
-([2018](#ref-paper)).
+high-dimensional data, as described in Sanyal et
+al. ([2019](#ref-paper)).
 
 ## Installation
 
@@ -51,8 +51,6 @@ iMOM priors are 0.022 and 0.008, respectively.
 Here is a simple illistration of the use the `GWASinlps()` function for
 both continous and binary phenotypes.
 
-<!-- For a detailed manual, see the package [vignette](https://cran.r-project.org/web/packages/BHMSMAfMRI/vignettes/BHMSMAfMRIvignette.pdf){target="_blank"}.  -->
-
 ### GWASinlps analysis with continuous data/phenotypes
 
 ``` r
@@ -66,7 +64,7 @@ library(GWASinlps)
 #> Loading required package: fastglm
 #> Loading required package: bigmemory
 #> 
-#>  Welcome to GWASinlps...Happy selection!
+#>  Welcome to GWASinlps! Select well.
 #>  
 #>  Website: https://nilotpalsanyal.github.io/GWASinlps/
 #>  Bug report: https://github.com/nilotpalsanyal/GWASinlps/issues
@@ -238,7 +236,7 @@ inlps_rigorous <- GWASinlps(y, x, family="binomial", method="rigorous",
                             mmle_xy=mmle_xy, prior="mom", tau=0.2, k0=1, m=50, rxx=0.2)
 #> =================================
 #> Number of selected variables: 4
-#> Time taken: 0.37 min
+#> Time taken: 0.33 min
 #> =================================
 
 inlps_quick <- GWASinlps(y, x, family="binomial", method="quick",
@@ -365,7 +363,8 @@ LASSO 1se
 
 <div id="ref-paper">
 
-Sanyal et al. (2018), “GWASinlps: Non-local prior based iterative SNP
-selection tool for genome-wide association studies”. Bioinformatics,
-35(1), 1-11. <span
+Nilotpal Sanyal, Min-Tzu Lo, Karolina Kauppi, Srdjan Djurovic, Ole A.
+Andreassen, Valen E. Johnson, and Chi-Hua Chen. “GWASinlps: non-local
+prior based iterative SNP selection tool for genome-wide association
+studies.” Bioinformatics 35, no. 1 (2019): 1-11. <span
 target="_blank"><https://doi.org/10.1093/bioinformatics/bty472></span>
