@@ -11,6 +11,7 @@
 status](https://www.r-pkg.org/badges/version/GWASinlps)](https://CRAN.R-project.org/package=GWASinlps)
 [![CodeFactor](https://www.codefactor.io/repository/github/nilotpalsanyal/gwasinlps/badge)](https://www.codefactor.io/repository/github/nilotpalsanyal/gwasinlps)
 [![R-CMD-check](https://github.com/nilotpalsanyal/GWASinlps/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/nilotpalsanyal/GWASinlps/actions/workflows/R-CMD-check.yaml)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/GWASinlps)](https://cran.r-project.org/package=GWASinlps)
 <!-- badges: end -->
 
 GWASinlps performs Bayesian non-local prior based iterative variable
