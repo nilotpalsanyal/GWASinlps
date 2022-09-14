@@ -1,3 +1,7 @@
+# GWASinlps v2.1
+
+* A small change in Cpp code: replaced & with &&.
+
 # GWASinlps v2.0
 
 * The computational efficiency was considerably increased.
