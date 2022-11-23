@@ -1,3 +1,11 @@
+# GWASinlps v2.2
+
+* Added analysis for survival data using accelerated failure time models. Added new function nlpsAFTM and updated the main function GWASinlps accordingly.
+
+* Added peMOM based analyses wherever available.
+
+* Minor changes: Some language changes in manual files and description.
+
 # GWASinlps v2.1
 
 * A small change in Cpp code: replaced & with &&.

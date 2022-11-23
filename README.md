@@ -16,8 +16,8 @@ status](https://www.r-pkg.org/badges/version/GWASinlps)](https://CRAN.R-project.
 
 GWASinlps performs Bayesian non-local prior based iterative variable
 selection for data from genome-Wide association studies (GWAS), or other
-high-dimensional data, as described in Sanyal et
-al. ([2019](#ref-paper)).
+high-dimensional data with continuous, binary or survival outcomes (see
+References below).
 
 ## Installation
 
@@ -62,8 +62,6 @@ library(GWASinlps)
 #> Loading required package: mgcv
 #> Loading required package: nlme
 #> This is mgcv 1.8-40. For overview type 'help("mgcv-package")'.
-#> Loading required package: fastglm
-#> Loading required package: bigmemory
 #> 
 #>  Welcome to GWASinlps! Select well.
 #>  
@@ -93,7 +91,7 @@ y = x %*% beta + rnorm(n, 0, 1)
 
 
 # GWASinlps analysis
-inlps <- GWASinlps(y, x, family="normal", prior="mom", tau=0.2, 
+inlps <- GWASinlps(y=y, x=x, family="normal", prior="mom", tau=0.2, 
           k0=1, m=50, rxx=0.2)
 #> =================================
 #> Number of selected variables: 9
@@ -203,6 +201,8 @@ LASSO 1se
 
 ``` r
 library(GWASinlps)
+library(fastglm)
+#> Loading required package: bigmemory
 
 # Generate design matrix (genotype matrix)
 n = 500   #number of subjects
@@ -233,14 +233,14 @@ mmle_xy = apply( x, 2, function(z) coef( fastglm(y=y,
                                                  x=cbind(1,matrix(z)), family = binomial(link = "logit")) )[2] ) 
 #pre-compute MMLEs of betas as it takes time
 
-inlps_rigorous <- GWASinlps(y, x, family="binomial", method="rigorous",
+inlps_rigorous <- GWASinlps(y=y, x=x, family="binomial", method="rigorous",
                             mmle_xy=mmle_xy, prior="mom", tau=0.2, k0=1, m=50, rxx=0.2)
 #> =================================
 #> Number of selected variables: 4
 #> Time taken: 0.33 min
 #> =================================
 
-inlps_quick <- GWASinlps(y, x, family="binomial", method="quick",
+inlps_quick <- GWASinlps(y=y, x=x, family="binomial", method="quick",
                          mmle_xy=mmle_xy, prior="mom", tau=0.2, k0=1, m=50, rxx=0.2)
 #> =================================
 #> Number of selected variables: 8
@@ -369,3 +369,7 @@ Andreassen, Valen E. Johnson, and Chi-Hua Chen. “GWASinlps: non-local
 prior based iterative SNP selection tool for genome-wide association
 studies.” Bioinformatics 35, no. 1 (2019): 1-11. <span
 target="_blank"><https://doi.org/10.1093/bioinformatics/bty472></span>
+
+Nilotpal Sanyal. “Iterative variable selection for high-dimensional data
+with binary outcomes.” arXiv preprint arXiv:2211.03190 (2022). <span
+target="_blank"><https://arxiv.org/pdf/2211.03190.pdf></span>
