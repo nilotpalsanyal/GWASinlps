@@ -1,3 +1,11 @@
+# GWASinlps v2.4
+
+* The dependence on the 'horseshoe' package is removed as that package is archived on CRAN.
+
+# GWASinlps v2.3
+
+* Insignificant minor technical update.
+
 # GWASinlps v2.2
 
 * Added analysis for survival data using accelerated failure time models. Added new function nlpsAFTM and updated the main function GWASinlps accordingly.

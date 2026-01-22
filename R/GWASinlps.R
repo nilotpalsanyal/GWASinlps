@@ -303,14 +303,41 @@ GWASinlps = function( y, event, x, family=c("normal","binomial","survival"), met
 	}    
 }
 
-nlpsLM = function( y, x, cor_xy, prior = c("mom", "imom", "emom", "zellner", "horseshoe"), tau, priorDelta = modelbbprior(1,1), k0, rxx, niter = 2000, verbose = F, tau.hs.method = "halfCauchy", sigma.hs.method = "Jeffreys" )
+nlpsLM = function( y, x, cor_xy, prior = c("mom", "imom", "emom", "zellner", "horseshoe"), tau, priorDelta = modelbbprior(1,1), k0, rxx, niter = 2000, verbose = F, 
+	# kept for backward compatibility only; ignored
+	tau.hs.method = "halfCauchy", sigma.hs.method = "Jeffreys" )
 { 	
+	# warn if legacy horseshoe-only args are supplied
+    if (!missing(tau.hs.method) || !missing(sigma.hs.method)) {
+        warning("Arguments 'tau.hs.method' and 'sigma.hs.method' are ignored (horseshoe deprecated).")
+    }
+
+    # match and possibly deprecate
+    prior <- match.arg(prior)
+    if (identical(prior, "horseshoe")) {
+        fallback <- "mom"              # choose your default fallback here
+        .deprecate_horseshoe(fallback)
+        prior <- fallback
+    }
+
+    # prior constructor
+    prior_ctor <- switch(
+        prior,
+        mom     = function(tau) momprior(tau = tau),
+        imom    = function(tau) imomprior(tau = tau),
+        emom    = function(tau) emomprior(tau = tau),
+        zellner = function(tau) zellnerprior(tau = tau),
+        stop("Unknown prior: ", prior)
+    )
+
 	k0 = min(k0,ncol(x)) #if x has only 1 snp, but k0=2, then just reset k0=1
 	names_sorted_cor_xy = names( sort( abs(cor_xy), decreasing = T ) [1:k0] )  # find x's with top k0 cors
 
 	hppm = list()
 
 	names_xx_input_set = NULL
+
+	prior_coef_obj <- prior_ctor(tau)
 
 	for(i in 1:k0)  #take the i'th of top k0 x's
 	{
@@ -325,42 +352,17 @@ nlpsLM = function( y, x, cor_xy, prior = c("mom", "imom", "emom", "zellner", "ho
 
 		if(verbose) cat( "j =",i, "\ninput :", names_xx_input, "\n" )
 
-		if(length(names_xx_input) != 0  )  # if there is some input x
+		if(length(names_xx_input))  # if there is some input x
 		{
-			if(prior == "mom") 
-			{
-				bb = modelSelection( y, x = x[, names_xx_input, drop=F], priorCoef = momprior(tau=tau), priorDelta = priorDelta, niter = niter, center=T, scale=T, verbose=F )  # NLP-MCMC with those vars only
-				hppm[[i]] = names_xx_input[ which(bb $ postMode == 1) ] # collect the HPPM vars
-			} else
-			#
-			#
-			if(prior == "imom") 
-			{
-				bb = modelSelection( y, x = x[, names_xx_input, drop=F], priorCoef = imomprior(tau=tau), priorDelta = priorDelta, niter = niter, center=T, scale=T, verbose=F )  # NLP-MCMC with those vars only
-				hppm[[i]] = names_xx_input [ which(bb $ postMode == 1) ] # collect the HPPM vars
-			} else
-			#
-			#
-			if(prior == "emom") 
-			{
-				bb = modelSelection( y, x = x[, names_xx_input, drop=F], priorCoef = emomprior(tau=tau), priorDelta = priorDelta, niter = niter, center=T, scale=T, verbose=F )  # NLP-MCMC with those vars only
-				hppm[[i]] = names_xx_input [ which(bb $ postMode == 1) ] # collect the HPPM vars
-			} else
-			#
-			#
-			if(prior == "zellner") 
-			{
-				bb = modelSelection( y, x = x[, names_xx_input, drop=F], priorCoef = zellnerprior(tau=tau), priorDelta = priorDelta, niter = niter, center=T, scale=T, verbose=F )  # NLP-MCMC with those vars only
-				hppm[[i]] = names_xx_input [ which(bb $ postMode == 1) ] # collect the HPPM vars
-			} else
-			#
-			#
-			if(prior == "horseshoe") 
-			{
-				fit = horseshoe(y, x[, names_xx_input, drop=F], method.tau = tau.hs.method, method.sigma = sigma.hs.method)
-				fitsel = HS.var.select(fit, y, "intervals")
-				hppm[[i]] = names_xx_input [ which( fitsel == 1 ) ]
-			}
+			bb = modelSelection( y, x = x[, names_xx_input, drop=F], priorCoef = prior_coef_obj, priorDelta = priorDelta, niter = niter, center=T, scale=T, verbose=F )  # NLP-MCMC with those vars only
+			hppm[[i]] = names_xx_input[ which(bb $ postMode == 1) ] # collect the HPPM vars
+				
+			# if(prior == "horseshoe") 
+			# {
+			# 	fit = horseshoe(y, x[, names_xx_input, drop=F], method.tau = tau.hs.method, method.sigma = sigma.hs.method)
+			# 	fitsel = HS.var.select(fit, y, "intervals")
+			# 	hppm[[i]] = names_xx_input [ which( fitsel == 1 ) ]
+			# }
 			if(verbose) cat( "selected :", hppm[[i]], "\n")  # print the HPPM vars
 		}
 	}
@@ -494,4 +496,14 @@ setdiff1 <- function (a, b, no.dup.guaranteed = TRUE) {
   ind <- match(bu, au, nomatch = 0)
   DIFF <- au[-c(ind, length(au) + 1)]  ## https://stackoverflow.com/a/52772380
   DIFF
+}
+
+.deprecate_horseshoe <- function(fallback = "mom") {
+    .Deprecated(
+        msg = paste0(
+            "prior = \"horseshoe\" is deprecated because the upstream package is archived on CRAN.\n",
+            "Falling back to prior = \"", fallback, "\". ",
+            "Please update your code or pick one of: \"mom\", \"imom\", \"emom\", \"zellner\"."
+        )
+    )
 }

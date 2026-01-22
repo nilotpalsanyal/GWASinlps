@@ -61,7 +61,12 @@ library(GWASinlps)
 #> Loading required package: ncvreg
 #> Loading required package: mgcv
 #> Loading required package: nlme
-#> This is mgcv 1.8-40. For overview type 'help("mgcv-package")'.
+#> 
+#> Attaching package: 'nlme'
+#> The following object is masked from 'package:ncvreg':
+#> 
+#>     intervals
+#> This is mgcv 1.9-4. For overview type '?mgcv'.
 #> 
 #>  Welcome to GWASinlps! Select well.
 #>  
@@ -93,16 +98,49 @@ y = x %*% beta + rnorm(n, 0, 1)
 # GWASinlps analysis
 inlps <- GWASinlps(y=y, x=x, family="normal", prior="mom", tau=0.2, 
           k0=1, m=50, rxx=0.2)
+#> Warning in nlpsLM(y = y, x = x[, varsleft], cor_xy = cor_xy, prior = prior, :
+#> Arguments 'tau.hs.method' and 'sigma.hs.method' are ignored (horseshoe
+#> deprecated).
+#> Warning in nlpsLM(y = y, x = x[, varsleft], cor_xy = cor_xy, prior = prior, :
+#> Arguments 'tau.hs.method' and 'sigma.hs.method' are ignored (horseshoe
+#> deprecated).
+#> Warning in nlpsLM(y = y, x = x[, varsleft], cor_xy = cor_xy, prior = prior, :
+#> Arguments 'tau.hs.method' and 'sigma.hs.method' are ignored (horseshoe
+#> deprecated).
+#> Warning in nlpsLM(y = y, x = x[, varsleft], cor_xy = cor_xy, prior = prior, :
+#> Arguments 'tau.hs.method' and 'sigma.hs.method' are ignored (horseshoe
+#> deprecated).
+#> Warning in nlpsLM(y = y, x = x[, varsleft], cor_xy = cor_xy, prior = prior, :
+#> Arguments 'tau.hs.method' and 'sigma.hs.method' are ignored (horseshoe
+#> deprecated).
+#> Warning in nlpsLM(y = y, x = x[, varsleft], cor_xy = cor_xy, prior = prior, :
+#> Arguments 'tau.hs.method' and 'sigma.hs.method' are ignored (horseshoe
+#> deprecated).
+#> Warning in nlpsLM(y = y, x = x[, varsleft], cor_xy = cor_xy, prior = prior, :
+#> Arguments 'tau.hs.method' and 'sigma.hs.method' are ignored (horseshoe
+#> deprecated).
+#> Warning in nlpsLM(y = y, x = x[, varsleft], cor_xy = cor_xy, prior = prior, :
+#> Arguments 'tau.hs.method' and 'sigma.hs.method' are ignored (horseshoe
+#> deprecated).
+#> Warning in nlpsLM(y = y, x = x[, varsleft], cor_xy = cor_xy, prior = prior, :
+#> Arguments 'tau.hs.method' and 'sigma.hs.method' are ignored (horseshoe
+#> deprecated).
+#> Warning in nlpsLM(y = y, x = x[, varsleft], cor_xy = cor_xy, prior = prior, :
+#> Arguments 'tau.hs.method' and 'sigma.hs.method' are ignored (horseshoe
+#> deprecated).
+#> Warning in nlpsLM(y = y, x = x[, varsleft], cor_xy = cor_xy, prior = prior, :
+#> Arguments 'tau.hs.method' and 'sigma.hs.method' are ignored (horseshoe
+#> deprecated).
 #> =================================
 #> Number of selected variables: 9
-#> Time taken: 0.04 min
+#> Time taken: 0.01 min
 #> =================================
 
 
 # LASSO analysis
 library(glmnet)
 #> Loading required package: Matrix
-#> Loaded glmnet 4.1-4
+#> Loaded glmnet 4.1-10
 fit.cvlasso = cv.glmnet( x, y, alpha = 1 )
 l.min = fit.cvlasso $lambda.min # lambda that gives minimum cvm
 l.1se = fit.cvlasso $lambda.1se  # largest lambda such that error is 
@@ -130,71 +168,120 @@ kableExtra::kable(res, format="html",
 ```
 
 <table style="width:60%; margin-left: auto; margin-right: auto;" class="table">
+
 <caption>
+
 <center>
+
 Variable selection from 10000 SNPs with 10 causal SNPs for continuous
 phenotypes from 200 subjects
 </center>
+
 </caption>
+
 <thead>
+
 <tr>
+
 <th style="text-align:left;">
+
 </th>
+
 <th style="text-align:right;">
+
 \#Selected SNPs
 </th>
+
 <th style="text-align:right;">
+
 \#True positive
 </th>
+
 <th style="text-align:right;">
+
 \#False negative
 </th>
+
 </tr>
+
 </thead>
+
 <tbody>
+
 <tr>
+
 <td style="text-align:left;">
+
 GWASinlps
 </td>
+
 <td style="text-align:right;">
+
 9
 </td>
+
 <td style="text-align:right;">
+
 8
 </td>
+
 <td style="text-align:right;">
+
 2
 </td>
+
 </tr>
+
 <tr>
+
 <td style="text-align:left;">
+
 LASSO min
 </td>
+
 <td style="text-align:right;">
+
 190
 </td>
+
 <td style="text-align:right;">
+
 8
 </td>
+
 <td style="text-align:right;">
+
 2
 </td>
+
 </tr>
+
 <tr>
+
 <td style="text-align:left;">
+
 LASSO 1se
 </td>
+
 <td style="text-align:right;">
+
 44
 </td>
+
 <td style="text-align:right;">
+
 8
 </td>
+
 <td style="text-align:right;">
+
 2
 </td>
+
 </tr>
+
 </tbody>
+
 </table>
 
 ### GWASinlps analysis with binary data/phenotypes
@@ -237,11 +324,41 @@ inlps_rigorous <- GWASinlps(y=y, x=x, family="binomial", method="rigorous",
                             mmle_xy=mmle_xy, prior="mom", tau=0.2, k0=1, m=50, rxx=0.2)
 #> =================================
 #> Number of selected variables: 4
-#> Time taken: 0.33 min
+#> Time taken: 0.07 min
 #> =================================
 
 inlps_quick <- GWASinlps(y=y, x=x, family="binomial", method="quick",
                          mmle_xy=mmle_xy, prior="mom", tau=0.2, k0=1, m=50, rxx=0.2)
+#> Warning in nlpsLM(y = y, x = x[, varsleft], cor_xy = cor_xy, prior = prior, :
+#> Arguments 'tau.hs.method' and 'sigma.hs.method' are ignored (horseshoe
+#> deprecated).
+#> Warning in nlpsLM(y = y, x = x[, varsleft], cor_xy = cor_xy, prior = prior, :
+#> Arguments 'tau.hs.method' and 'sigma.hs.method' are ignored (horseshoe
+#> deprecated).
+#> Warning in nlpsLM(y = y, x = x[, varsleft], cor_xy = cor_xy, prior = prior, :
+#> Arguments 'tau.hs.method' and 'sigma.hs.method' are ignored (horseshoe
+#> deprecated).
+#> Warning in nlpsLM(y = y, x = x[, varsleft], cor_xy = cor_xy, prior = prior, :
+#> Arguments 'tau.hs.method' and 'sigma.hs.method' are ignored (horseshoe
+#> deprecated).
+#> Warning in nlpsLM(y = y, x = x[, varsleft], cor_xy = cor_xy, prior = prior, :
+#> Arguments 'tau.hs.method' and 'sigma.hs.method' are ignored (horseshoe
+#> deprecated).
+#> Warning in nlpsLM(y = y, x = x[, varsleft], cor_xy = cor_xy, prior = prior, :
+#> Arguments 'tau.hs.method' and 'sigma.hs.method' are ignored (horseshoe
+#> deprecated).
+#> Warning in nlpsLM(y = y, x = x[, varsleft], cor_xy = cor_xy, prior = prior, :
+#> Arguments 'tau.hs.method' and 'sigma.hs.method' are ignored (horseshoe
+#> deprecated).
+#> Warning in nlpsLM(y = y, x = x[, varsleft], cor_xy = cor_xy, prior = prior, :
+#> Arguments 'tau.hs.method' and 'sigma.hs.method' are ignored (horseshoe
+#> deprecated).
+#> Warning in nlpsLM(y = y, x = x[, varsleft], cor_xy = cor_xy, prior = prior, :
+#> Arguments 'tau.hs.method' and 'sigma.hs.method' are ignored (horseshoe
+#> deprecated).
+#> Warning in nlpsLM(y = y, x = x[, varsleft], cor_xy = cor_xy, prior = prior, :
+#> Arguments 'tau.hs.method' and 'sigma.hs.method' are ignored (horseshoe
+#> deprecated).
 #> =================================
 #> Number of selected variables: 8
 #> Time taken: 0 min
@@ -277,85 +394,144 @@ kableExtra::kable(res, format="html",
 ```
 
 <table style="width:60%; margin-left: auto; margin-right: auto;" class="table">
+
 <caption>
+
 <center>
+
 Variable selection from 2000 SNPs with 10 causal SNPs for binary
 phenotypes from 500 subjects
 </center>
+
 </caption>
+
 <thead>
+
 <tr>
+
 <th style="text-align:left;">
+
 </th>
+
 <th style="text-align:right;">
+
 \#Selected SNPs
 </th>
+
 <th style="text-align:right;">
+
 \#True positive
 </th>
+
 <th style="text-align:right;">
+
 \#False negative
 </th>
+
 </tr>
+
 </thead>
+
 <tbody>
+
 <tr>
+
 <td style="text-align:left;">
+
 GWASinlps rigorous
 </td>
+
 <td style="text-align:right;">
+
 4
 </td>
+
 <td style="text-align:right;">
+
 4
 </td>
+
 <td style="text-align:right;">
+
 6
 </td>
+
 </tr>
+
 <tr>
+
 <td style="text-align:left;">
+
 GWASinlps quick
 </td>
+
 <td style="text-align:right;">
+
 8
 </td>
+
 <td style="text-align:right;">
+
 4
 </td>
+
 <td style="text-align:right;">
+
 6
 </td>
+
 </tr>
+
 <tr>
+
 <td style="text-align:left;">
+
 LASSO min
 </td>
+
 <td style="text-align:right;">
+
 20
 </td>
+
 <td style="text-align:right;">
+
 5
 </td>
+
 <td style="text-align:right;">
+
 5
 </td>
+
 </tr>
+
 <tr>
+
 <td style="text-align:left;">
+
 LASSO 1se
 </td>
+
 <td style="text-align:right;">
+
 6
 </td>
+
 <td style="text-align:right;">
+
 4
 </td>
+
 <td style="text-align:right;">
+
 6
 </td>
+
 </tr>
+
 </tbody>
+
 </table>
 
 ## References:
@@ -367,9 +543,13 @@ LASSO 1se
 Nilotpal Sanyal, Min-Tzu Lo, Karolina Kauppi, Srdjan Djurovic, Ole A.
 Andreassen, Valen E. Johnson, and Chi-Hua Chen. “GWASinlps: non-local
 prior based iterative SNP selection tool for genome-wide association
-studies.” Bioinformatics 35, no. 1 (2019): 1-11. <span
-target="_blank"><https://doi.org/10.1093/bioinformatics/bty472></span>
+studies.” Bioinformatics 35, no. 1 (2019): 1-11.
+<span target="_blank"><https://doi.org/10.1093/bioinformatics/bty472></span>
 
 Nilotpal Sanyal. “Iterative variable selection for high-dimensional data
-with binary outcomes.” arXiv preprint arXiv:2211.03190 (2022). <span
-target="_blank"><https://arxiv.org/pdf/2211.03190.pdf></span>
+with binary outcomes.” arXiv preprint arXiv:2211.03190 (2022).
+<span target="_blank"><https://arxiv.org/abs/2304.11902></span>
+
+</div>
+
+</div>

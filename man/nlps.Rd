@@ -31,15 +31,15 @@ nlpsAFTM(y, event, x, mu_xy, prior = c("mom", "imom", "emom",
   \item{cor_xy}{Only for LM. Vector of (Pearson) correlations of \code{y} with the columns of \code{x}.}
   \item{mmle_xy}{Only for GLM. Vector of maximum marginal likelihood estimates of the regression parameters for the variables (SNPs) in \code{x}. These may be obtained from individual GLM fits of \code{y} with the columns of \code{x}.}
   \item{mu_xy}{Only for AFTM. Vector of marginal utility estimates of the variables (SNPs) in \code{x}. These may be obtained by fitting AFT model to \code{y} with individual columns of \code{x} using the \code{survreg} function of the package \code{survival}. }
-  \item{prior}{\code{"mom"} for pMOM prior, \code{"imom"} for piMOM prior, \code{"emom"} for peMOM prior, \code{"zellner"} for Zellner's g-prior, \code{"horseshoe"} for horseshoe prior. For GLM, \code{"zellner"} considers group Zellner prior and \code{"emom"} and \code{"horseshoe"} are not available. For AFTM, \code{"horseshoe"} is not available. }
+  \item{prior}{\code{"mom"} for pMOM prior, \code{"imom"} for piMOM prior, \code{"emom"} for peMOM prior, \code{"zellner"} for Zellner's g-prior. For GLM, \code{"zellner"} considers group Zellner prior and \code{"emom"} is not available. \code{"horseshoe"} is deprecated because the upstream package is archived on CRAN. }
   \item{tau}{the value of the scale parameter tau of the non-local prior. }
   \item{priorDelta}{Prior for model space. Defaults to \code{modelbbprior(1,1)}, which is beta-binomial(1,1) prior.}
   \item{k0}{GWASinlps tuning parameter denoting the number of leading SNPs (see Details).}
   \item{rxx}{GWASinlps tuning parameter denoting the correlation threshold to determine leading sets (see References).}
   \item{niter}{Number of MCMC iterations for non-local prior based Bayesian variable selection. Defaults to 2000.}
   \item{verbose}{If TRUE, prints result from the iterations progressively. FALSE by default.}
-  \item{tau.hs.method}{Necessary only when \code{prior="horseshoe"}. See \code{horseshoe} function reference.}
-  \item{sigma.hs.method}{Necessary only when \code{prior="horseshoe"}. See \code{horseshoe} function reference.}  
+  \item{tau.hs.method}{Kept for backward compatibility only and ignored (because horseshoe is deprecated)}
+  \item{sigma.hs.method}{Kept for backward compatibility only and ignored (because horseshoe is deprecated)}  
 }
 
 \details{The \code{nlpsLM}, \code{nlpsGLM} and \code{nlpsAFTM} functions perform SNP selection in one iteration for continuous data, binary data, and survival data, respectively. The \code{GWASinlps} function repeatedly calls these functions. For details of the procedure, see the reference for the \code{GWASinlps} function.
@@ -61,7 +61,7 @@ Sanyal, N. (2022). "Iterative variable selection for high-dimensional data with 
 }
 
 \seealso{
-\code{\link{GWASinlps}}, \code{\link[mombf]{modelSelection}}, \code{\link[horseshoe]{horseshoe}}
+\code{\link{GWASinlps}}, \code{\link[mombf]{modelSelection}}
 }
 
 \examples{
